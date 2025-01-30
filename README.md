@@ -116,7 +116,7 @@ The system uses two datasets:
    export SPARK_HOME=/path/to/spark
    export PATH=$SPARK_HOME/bin:$PATH
 4. Setting Up Kafka Locally
-   - Download Kafka from the official website.
+   - Download Kafka from the [official website](https://kafka.apache.org/downloads).
    - Extract the downloaded file:
    ```bash
    tar -xzf kafka_2.13-3.2.1.tgz
