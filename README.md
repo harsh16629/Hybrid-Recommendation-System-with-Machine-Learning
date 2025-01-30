@@ -61,7 +61,14 @@ The system is implemented in Python using **PySpark** for scalability and **Scik
 ### 3. Hybrid Recommendations
 - Combines recommendations from collaborative filtering and content-based filtering.
 - Ensures diverse and personalized recommendations.
-
+### 4. Real-Time Processing
+- Utilizes Apache Kafka for streaming user interactions.
+### 5. Cloud Integration
+- Incorporates Google Cloud Recommendations AI for managed recommendations.
+### 6. Advanced Embeddings
+- Uses Sentence-BERT for semantic understanding of item descriptions.
+### 7. Evaluation and Monitoring
+- Includes Precision@K, Recall@K, NDCG, and MLflow for logging experiment parameters and tracking.
 ---
 
 ## Data
@@ -82,8 +89,16 @@ Dummy datasets are generated for testing. Replace them with real data for produc
 ## Setup and Installation
 
 ### Prerequisites
-- Python 3.9 or higher.
-- Java 8 or higher (required for PySpark).
+- Python>=3.9
+- Java>=8 (required for PySpark)
+- pyspark>=3.3.0
+- scikit-learn>=1.0.0
+- numpy>=1.21.0
+- pandas>=1.3.0
+- sentence-transformers>=2.2.0
+- kafka-python>=2.0.0
+- mlflow>=1.0.0
+- tabulate>=0.8.0
 
 ### Steps
 
@@ -99,7 +114,26 @@ Dummy datasets are generated for testing. Replace them with real data for produc
    ```bash
    export SPARK_HOME=/path/to/spark
    export PATH=$SPARK_HOME/bin:$PATH
-4. Run the script:
+4. Setting Up Kafka Locally
+   - Download Kafka from the official website.
+   - Extract the downloaded file:
+   ```bash
+   tar -xzf kafka_2.13-3.2.1.tgz
+   cd kafka_2.13-3.2.1
+   ```
+   - Start Zookeeper:
+   ```bash
+   .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+   ```
+   - Start Kafka Broker:
+   ```bash
+   .\bin\windows\kafka-server-start.bat .\config\server.properties
+   ```
+   - Create a Topic:
+   ```bash
+   .\bin\windows\kafka-topics.bat --create --topic recommendations --bootstrap-server localhost:9092 --partitions 1 --      replication-factor 1
+   ```
+5. Run the script:
    ```bash
    python main.py
 
@@ -119,7 +153,7 @@ The script generates recommendations and displays them in the console. Here's ho
    - Displays a diverse set of recommendations for a given user and item.
 
 ## Output
-### Example Output
+### Example Outputs
 - Collaborative Filtering Recommendations
   ```bash
   ======================================================================
@@ -173,6 +207,42 @@ The script generates recommendations and displays them in the console. Here's ho
   |   14    | Sports     | Description for item 14 |
   +---------+-----------+----------------------+
   ======================================================================
+- Kafka Consumer Output
+```bash
+{
+  "item_id": 12,
+  "category": "Electronics",
+  "description": "Description for item 12"
+}
+{
+  "item_id": 25,
+  "category": "Books",
+  "description": "Description for item 25"
+}
+{
+  "item_id": 34,
+  "category": "Clothing",
+  "description": "Description for item 34"
+}
+...
+```
+- MLflow Tracking Output
+```bash
+INFO:mlflow:=== Run (ID: abc123) ===
+INFO:mlflow:Parameters:
+  num_users: 100
+  num_items: 50
+INFO:mlflow:Metrics:
+  precision@10: 0.85
+INFO:mlflow:Model saved at: /path/to/als_model
+```
+### Summary of outputs:
+1. Collaborative Filtering: Displays top recommendations for each user with predicted ratings.
+2. Content-Based Filtering: Shows items similar to a given item based on descriptions.
+3. Hybrid Recommendations: Combines collaborative and content-based recommendations.
+4. Kafka Producer: Logs successful message sending to Kafka.
+5. Kafka Consumer: Displays recommendations in real-time.
+6. MLflow Tracking: Logs experiment parameters, metrics, and model artifacts.
 ## Contributing
 ### Contributions are welcome! Follow these steps:
 
