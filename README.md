@@ -82,7 +82,7 @@ The system uses two datasets:
    - Contains metadata for items (e.g., descriptions, categories).
    - Columns: `item_id`, `category`, `description`.
 
-Dummy datasets are generated for testing. Replace them with real data for production use.
+<mark>Dummy datasets are generated for testing. Replace them with real data for production use.</mark>
 
 ---
 
@@ -99,6 +99,7 @@ Dummy datasets are generated for testing. Replace them with real data for produc
 - kafka-python>=2.0.0
 - mlflow>=1.0.0
 - tabulate>=0.8.0
+---
 
 ### Steps
 
@@ -136,6 +137,7 @@ Dummy datasets are generated for testing. Replace them with real data for produc
 5. Run the script:
    ```bash
    python main.py
+---
 
 ## Usage
 The script generates recommendations and displays them in the console. Here's how to interpret the output:
@@ -151,6 +153,7 @@ The script generates recommendations and displays them in the console. Here's ho
 3. Hybrid Recommendations:
    - Combines collaborative and content-based recommendations.
    - Displays a diverse set of recommendations for a given user and item.
+---
 
 ## Output
 ### Example Outputs
@@ -236,6 +239,8 @@ INFO:mlflow:Metrics:
   precision@10: 0.85
 INFO:mlflow:Model saved at: /path/to/als_model
 ```
+---
+
 ### Summary of outputs:
 1. Collaborative Filtering: Displays top recommendations for each user with predicted ratings.
 2. Content-Based Filtering: Shows items similar to a given item based on descriptions.
@@ -243,6 +248,8 @@ INFO:mlflow:Model saved at: /path/to/als_model
 4. Kafka Producer: Logs successful message sending to Kafka.
 5. Kafka Consumer: Displays recommendations in real-time.
 6. MLflow Tracking: Logs experiment parameters, metrics, and model artifacts.
+---
+
 ## Contributing
 ### Contributions are welcome! Follow these steps:
 
@@ -257,9 +264,11 @@ INFO:mlflow:Model saved at: /path/to/als_model
    ```bash
    git push origin feature/your-feature-name
 5. Open a pull request.
+---
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
+---
 
 ## Acknowledgments
 - Apache Spark for providing the ALS implementation.
