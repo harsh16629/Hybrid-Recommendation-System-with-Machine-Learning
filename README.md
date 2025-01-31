@@ -111,17 +111,17 @@ The system uses two datasets:
      C:\kafka
 
    - Start Zookeeper:
-   ```bash
-   .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
-   ```
+      ```bash
+      .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+      ```
    - Start Kafka Broker:
-   ```bash
-   .\bin\windows\kafka-server-start.bat .\config\server.properties
-   ```
+      ```bash
+      .\bin\windows\kafka-server-start.bat .\config\server.properties
+      ```
    - Create a Topic:
-   ```bash
-   .\bin\windows\kafka-topics.bat --create --topic recommendations --bootstrap-server localhost:9092 --partitions 1 --      replication-factor 1
-   ```
+      ```bash
+      .\bin\windows\kafka-topics.bat --create --topic recommendations --bootstrap-server localhost:9092 --partitions 1 --      replication-factor 1
+      ```
 5. Run the script:
    ```bash
    python main.py
