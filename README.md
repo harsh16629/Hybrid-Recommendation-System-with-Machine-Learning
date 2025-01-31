@@ -105,11 +105,11 @@ The system uses two datasets:
 
 3. Setting Up Kafka Locally
    - Download Kafka from the [official website](https://kafka.apache.org/downloads).
-   - Extract the downloaded file:
-   ```bash
-   tar -xzf kafka_2.13-3.2.1.tgz
-   cd kafka_2.13-3.2.1
-   ```
+   - Extract the downloaded .tgz file using a tool like 7-Zip or any other archive manager.
+   - For example, extract it to a directory like:
+     ```bash
+     C:\kafka
+
    - Start Zookeeper:
    ```bash
    .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
@@ -122,7 +122,7 @@ The system uses two datasets:
    ```bash
    .\bin\windows\kafka-topics.bat --create --topic recommendations --bootstrap-server localhost:9092 --partitions 1 --      replication-factor 1
    ```
-4. Run the script:
+5. Run the script:
    ```bash
    python main.py
 ---
@@ -152,61 +152,45 @@ The script generates recommendations and displays them in the console. Here's ho
 
 ## Output
 ### Example Outputs
-- Collaborative Filtering Recommendations
-  ```bash
-  ======================================================================
-  Collaborative Filtering Recommendations:
-  ======================================================================
+1. Collaborative Filtering Recommendations
 
-  User 1 Recommendations:
-  +---------+-----------+----------------------+-------------------+
-  | item_id |  category |     description      | predicted_rating  |
-  +---------+-----------+----------------------+-------------------+
-  |   12    | Electronics | Description for item 12 |       4.5       |
-  |   25    | Books      | Description for item 25 |       4.3       |
-  |   34    | Clothing   | Description for item 34 |       4.2       |
-  |   45    | Home       | Description for item 45 |       4.1       |
-  |   18    | Sports     | Description for item 18 |       4.0       |
-  +---------+-----------+----------------------+-------------------+
-  ...
-  ======================================================================
-- Content-Based Recommendations
-  ```bash
-  ======================================================================
-  Content-Based Recommendations for Item 1:
-  ======================================================================
-  +---------+-----------+----------------------+
-  | item_id |  category |     description      |
-  +---------+-----------+----------------------+
-  |   12    | Electronics | Description for item 12 |
-  |   25    | Books      | Description for item 25 |
-  |   34    | Clothing   | Description for item 34 |
-  |   45    | Home       | Description for item 45 |
-  |   18    | Sports     | Description for item 18 |
-  +---------+-----------+----------------------+
-  ======================================================================
-- Hybrid Recommendations
-  ```bash
-  ======================================================================
-  Hybrid Recommendations for User 1 and Item 1:
-  ======================================================================
-  +---------+-----------+----------------------+
-  | item_id |  category |     description      |
-  +---------+-----------+----------------------+
-  |   12    | Electronics | Description for item 12 |
-  |   25    | Books      | Description for item 25 |
-  |   34    | Clothing   | Description for item 34 |
-  |   45    | Home       | Description for item 45 |
-  |   18    | Sports     | Description for item 18 |
-  |    7    | Electronics | Description for item 7  |
-  |   56    | Clothing   | Description for item 56 |
-  |   23    | Books      | Description for item 23 |
-  |   89    | Home       | Description for item 89 |
-  |   14    | Sports     | Description for item 14 |
-  +---------+-----------+----------------------+
-  ======================================================================
+| item_id | category     | description               | predicted_rating |
+|---------|--------------|---------------------------|-----------------:|
+| 12      | Electronics  | Description for item 12   | 4.5              |
+| 25      | Books        | Description for item 25   | 4.3              |
+| 34      | Clothing     | Description for item 34   | 4.2              |
+| 45      | Home         | Description for item 45   | 4.1              |
+| 18      | Sports       | Description for item 18   | 4.0              |
+
+2. Content-Based Recommendations
+#### Content-Based Recommendations for Item 1:
+  
+| item_id | category     | description               |
+|---------|--------------|---------------------------|
+| 12      | Electronics  | Description for item 12   |
+| 25      | Books        | Description for item 25   |
+| 34      | Clothing     | Description for item 34   |
+| 45      | Home         | Description for item 45   |
+| 18      | Sports       | Description for item 18   |
+
+ 3. Hybrid Recommendations
+#### Hybrid Recommendations for User 1 and Item 1:
+
+| item_id | category     | description               |
+|---------|--------------|---------------------------|
+| 12      | Electronics  | Description for item 12   |
+| 25      | Books        | Description for item 25   |
+| 34      | Clothing     | Description for item 34   |
+| 45      | Home         | Description for item 45   |
+| 18      | Sports       | Description for item 18   |
+| 7       | Electronics  | Description for item 7    |
+| 56      | Clothing     | Description for item 56   |
+| 23      | Books        | Description for item 23   |
+| 89      | Home         | Description for item 89   |
+| 14      | Sports       | Description for item 14   |
+
 - Kafka Consumer Output
-```bash
+```json
 {
   "item_id": 12,
   "category": "Electronics",
@@ -222,7 +206,6 @@ The script generates recommendations and displays them in the console. Here's ho
   "category": "Clothing",
   "description": "Description for item 34"
 }
-...
 ```
 - MLflow Tracking Output
 ```bash
