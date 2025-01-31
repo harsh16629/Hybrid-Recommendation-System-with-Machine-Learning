@@ -1,4 +1,4 @@
-# Recommendation System
+# Hybrid Recommendation System with Machine Learning
 
 This project implements a **hybrid recommendation system** that combines **Collaborative Filtering**, **Content-Based Filtering**, and **Alternating Least Squares (ALS)** to provide personalized product recommendations to users. The system is designed to be scalable and easily deployable.
 
@@ -20,31 +20,31 @@ This project implements a **hybrid recommendation system** that combines **Colla
 
 ## Overview
 
-The recommendation system is built to provide personalized product recommendations to users based on their past interactions and item metadata. It combines:
-- **Collaborative Filtering**: Uses user-item interactions to find similar users or items.
-- **Content-Based Filtering**: Uses item metadata (e.g., descriptions, categories) to recommend similar items.
-- **ALS (Alternating Least Squares)**: A matrix factorization algorithm for collaborative filtering.
-
-The system is implemented in Python using **PySpark** for scalability and **Scikit-learn** for content-based filtering.
+This is a simple build for a hybrid recommendation system that combines collaborative filtering, content-based filtering, and real-time processing to deliver personalized product recommendations. The system is designed to handle large datasets using PySpark and provides interpretable, user-friendly outputs. It integrates Apache Kafka for real-time streaming of recommendations and uses Sentence-BERT for advanced semantic understanding of item descriptions. The system is modular, scalable, and ready for deployment in real-world applications like e-commerce or streaming platforms.
 
 ---
 
 ## Features
 
-- **Hybrid Recommendations**: Combines collaborative and content-based filtering for better accuracy.
-- **Scalable**: Uses PySpark for distributed computing, making it suitable for large datasets.
-- **User-Friendly Output**: Displays recommendations with item details (name, category, description) in a clean, tabular format.
-- **Customizable**: Supports tuning of hyperparameters for ALS and other algorithms.
+- **Hybrid Recommendations:** Combines collaborative and content-based filtering for diverse and accurate suggestions.
+- **Real-Time Processing:** Uses Apache Kafka to stream recommendations in real-time.
+- **Scalability:** Leverages PySpark for distributed computing, making it suitable for large datasets.
+- **Advanced Embeddings:** Uses Sentence-BERT for semantic understanding of item descriptions.
+- **User-Friendly Output:** Displays recommendations with item details (name, category, description) in a clean, tabular format.
+- **Experiment Tracking:** Uses MLflow to log parameters, metrics, and model artifacts for reproducibility.
 
 ---
 
 ## Technologies Used
 
-- **Python**: Primary programming language.
-- **PySpark**: For distributed computing and ALS implementation.
-- **Scikit-learn**: For content-based filtering (TF-IDF and cosine similarity).
-- **Pandas** and **NumPy**: For data manipulation.
-- **Tabulate**: For pretty-printing tables in the console.
+- **Python:** Primary programming language.
+- **PySpark:** For distributed computing and ALS implementation.
+- **Scikit-learn:** For content-based filtering (TF-IDF and cosine similarity).
+- **Sentence-BERT:** For advanced semantic understanding of item descriptions.
+- **Apache Kafka:** For real-time streaming of recommendations.
+- **MLflow:** For experiment tracking and model management.
+- **Pandas and NumPy:** For data manipulation.
+- **Tabulate:** For pretty-printing tables in the console.
 
 ---
 
@@ -57,18 +57,17 @@ The system is implemented in Python using **PySpark** for scalability and **Scik
 ### 2. Content-Based Filtering
 - Uses TF-IDF to vectorize item descriptions.
 - Computes cosine similarity between items to recommend similar products.
+- For advanced semantic understanding, Sentence-BERT embeddings are used to compute item similarities.
 
 ### 3. Hybrid Recommendations
 - Combines recommendations from collaborative filtering and content-based filtering.
 - Ensures diverse and personalized recommendations.
 ### 4. Real-Time Processing
-- Utilizes Apache Kafka for streaming user interactions.
-### 5. Cloud Integration
-- Incorporates Google Cloud Recommendations AI for managed recommendations.
-### 6. Advanced Embeddings
-- Uses Sentence-BERT for semantic understanding of item descriptions.
-### 7. Evaluation and Monitoring
-- Includes Precision@K, Recall@K, NDCG, and MLflow for logging experiment parameters and tracking.
+- Apache Kafka is used to stream user-item interactions and recommendations in real-time.
+- Real-time recommendations are streamed to the Kafka topic for further processing or consumption.
+### 5. Evaluation and Monitoring
+- Metrics: Precision@K, Recall@K, and NDCG (Normalized Discounted Cumulative Gain) are used to evaluate recommendation quality.
+- MLflow: Tracks experiments, logs parameters, metrics, and model artifacts for reproducibility.
 ---
 
 ## Data
@@ -89,16 +88,9 @@ The system uses two datasets:
 ## Setup and Installation
 
 ### Prerequisites
-- Python>=3.9
-- Java>=8 (required for PySpark)
-- pyspark>=3.3.0
-- scikit-learn>=1.0.0
-- numpy>=1.21.0
-- pandas>=1.3.0
-- sentence-transformers>=2.2.0
-- kafka-python>=2.0.0
-- mlflow>=1.0.0
-- tabulate>=0.8.0
+- Python 3.9 or higher.
+- Java 8 or higher (required for PySpark).
+- Kafka and Zookeeper (for real-time processing).
 ---
 
 ### Steps
@@ -110,12 +102,8 @@ The system uses two datasets:
 2. Install dependencies:
    ```bash
    pip install -r requirements.txt
-3. Download and install Apache Spark
-   - Set the SPARK_HOME environment variable:
-   ```bash
-   export SPARK_HOME=/path/to/spark
-   export PATH=$SPARK_HOME/bin:$PATH
-4. Setting Up Kafka Locally
+
+3. Setting Up Kafka Locally
    - Download Kafka from the [official website](https://kafka.apache.org/downloads).
    - Extract the downloaded file:
    ```bash
@@ -134,7 +122,7 @@ The system uses two datasets:
    ```bash
    .\bin\windows\kafka-topics.bat --create --topic recommendations --bootstrap-server localhost:9092 --partitions 1 --      replication-factor 1
    ```
-5. Run the script:
+4. Run the script:
    ```bash
    python main.py
 ---
@@ -153,6 +141,13 @@ The script generates recommendations and displays them in the console. Here's ho
 3. Hybrid Recommendations:
    - Combines collaborative and content-based recommendations.
    - Displays a diverse set of recommendations for a given user and item.
+     
+4. Real-Time Processing:
+- Sends recommendations to the Kafka recommendations topic for real-time streaming.
+- Use a Kafka consumer to listen to the topic and process recommendations in real-time.
+  
+5. Experiment Tracking:
+- Use MLflow to track experiments, log parameters, metrics, and model artifacts
 ---
 
 ## Output
